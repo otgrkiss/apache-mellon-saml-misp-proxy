@@ -8,22 +8,30 @@ RUN apt-get -y upgrade
 RUN DEBIAN_FRONTEND=noninteractive apt-get -y install apache2 openssl pkg-config liblasso3 libapache2-mod-auth-mellon curl
 
 RUN a2enmod ssl
+RUN a2enmod headers
 RUN a2enmod rewrite
 RUN a2enmod auth_mellon
+RUN a2enmod proxy
+RUN a2enmod proxy_http
+RUN a2enmod proxy_balancer
+RUN a2enmod lbmethod_byrequests
+
 
 RUN mkdir -p /etc/httpd/saml2 && cd /etc/httpd/saml2
 ENV fqdn "localhost"
 ENV idp_host "192.168.178.205:8080"
 ENV realm "local-groupsec"
-ENV mellon_endpoint_url "http://${fqdn}/mellon"
+ENV mellon_endpoint_url "http://${fqdn}:8081/mellon"
 ENV mellon_entity_id "${mellon_endpoint_url}/metadata"
-ENV file_prefix "http_${fqdn}_mellon_metadata"
+ENV file_prefix "http_${fqdn}_8081_mellon_metadata"
 
 RUN /usr/sbin/mellon_create_metadata $mellon_entity_id $mellon_endpoint_url
 
 RUN mv ${file_prefix}.cert /etc/httpd/saml2/mellon.crt
 RUN mv ${file_prefix}.key /etc/httpd/saml2/mellon.key
 RUN mv ${file_prefix}.xml /etc/httpd/saml2/mellon_metadata.xml
+RUN cp /etc/httpd/saml2/mellon_metadata.xml /var/www/html/metadata.xml
+RUN chown www-data:www-data /var/www/html/metadata.xml
 
 RUN curl -k -o /etc/httpd/saml2/idp_metadata.xml "http://${idp_host}/auth/realms/${realm}/protocol/saml/descriptor"
 RUN apachectl configtest
