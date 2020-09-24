@@ -11,8 +11,9 @@ cd /etc/httpd/saml2
 mv ${file_prefix}.cert /etc/httpd/saml2/mellon.crt
 mv ${file_prefix}.key /etc/httpd/saml2/mellon.key
 mv ${file_prefix}.xml /etc/httpd/saml2/mellon_metadata.xml
-cp /etc/httpd/saml2/mellon_metadata.xml /var/www/html/metadata.xml
-chown www-data:www-data /var/www/html/metadata.xml
+mkdir -p /var/www/html/saml
+cp /etc/httpd/saml2/mellon_metadata.xml /var/www/html/saml/metadata.xml
+chown www-data:www-data /var/www/saml_metadata/metadata/saml.xml
 
 # download metadata from idp
 curl -k -o /etc/httpd/saml2/idp_metadata.xml "${idp_metadata_url}"
