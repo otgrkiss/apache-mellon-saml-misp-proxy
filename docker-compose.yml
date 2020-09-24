@@ -8,5 +8,9 @@ services:
     ports:
       - "8081:80"
     environment:
-      idp_host: "localhost:8080"
-      realm: "local-groupsec"
+      sp_scheme: "http"
+      sp_host: "localhost"
+      sp_port: "8081"
+      idp_metadata_url: "http://192.168.178.205:8080/auth/realms/local-groupsec/protocol/saml/descriptor"
+      proxy_destination_scheme_host: "http://192.168.178.205:8083/"
+      misp_secure_header: "SAML" # must be uppercase and dont use -
