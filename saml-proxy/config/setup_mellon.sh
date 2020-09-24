@@ -18,6 +18,7 @@ chown www-data:www-data /var/www/html/metadata.xml
 curl -k -o /etc/httpd/saml2/idp_metadata.xml "${idp_metadata_url}"
 
 sed "s|proxy_destination_scheme_host|${proxy_destination_scheme_host}|g" /etc/httpd/saml2/mellon_template.conf > /etc/apache2/sites-enabled/mellon.conf
+sed -i "s|misp_secure_header|${misp_secure_header}|g" /etc/apache2/sites-enabled/mellon.conf
 
 # test apache config
 apachectl configtest
