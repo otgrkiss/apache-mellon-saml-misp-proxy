@@ -12,5 +12,19 @@ After successful authentication the email address of the user is set as a reques
 SP Metadata URL: /saml/metadata.xml   
 
 
+Saml Login on misp
+
+Cool way: <br> 
+Edit file MISP/app/Config/config.php <br>
+Change line: from 'ApacheShibbAuth' => NULL to 'ApacheShibbAuth' => true
+
+This displays a login button "Login with SAML"
+
+Apache Proxy is saml authenticating users bases on loctions:
+  - ###### /sso/users/login
+  - /Shibboleth.sso/Login (Supporting the standard SAML Login button in misp)
+
+
+
 
 
