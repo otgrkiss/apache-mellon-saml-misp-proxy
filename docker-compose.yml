@@ -15,7 +15,8 @@ services:
       idp_metadata_url: "http://192.168.178.205:8080/auth/realms/local-groupsec/protocol/saml/descriptor"
       proxy_destination_scheme_host: "http://192.168.178.205:8083/"
       misp_secure_header: "SAML" # must be uppercase and dont use -
-      apache_self_signed_cert: "true" # generates new .crt and .key on every docker start. on false look at volume "apache-ssl"
+      apache_self_signed_cert: "false" # generates new .crt and .key on every docker start. on false look at volume "apache-ssl"
+      mellon_auth_mode: "auth" # mellon auth modes info, auth, off
     volumes:
       - apache-ssl:/usr/local/ssl/apache # provide your own crt and key named public.crt public.key in this volume and set apache_self_signed_cert = "false"
 
