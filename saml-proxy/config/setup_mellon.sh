@@ -22,6 +22,7 @@ curl -k -o /etc/httpd/saml2/idp_metadata.xml "${idp_metadata_url}"
 sed "s|proxy_destination_scheme_host|${proxy_destination_scheme_host}|g" /etc/httpd/saml2/mellon_ssl_template.conf > /etc/apache2/sites-enabled/mellon_ssl.conf
 sed -i "s|misp_secure_header|${misp_secure_header}|g" /etc/apache2/sites-enabled/mellon_ssl.conf
 sed -i "s|mellon_auth_mode|${mellon_auth_mode}|g" /etc/apache2/sites-enabled/mellon_ssl.conf
+sed -i "s|sp_host|${sp_host}:${sp_port}|g" /etc/apache2/sites-enabled/mellon_ssl.conf
 
 # generate self signed certificates if wanted
 if [ "$apache_self_signed_cert" = "true" ] ; then
