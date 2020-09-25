@@ -15,6 +15,7 @@ RUN a2enmod proxy
 RUN a2enmod proxy_http
 RUN a2enmod proxy_balancer
 RUN a2enmod lbmethod_byrequests
+RUN a2enmod remoteip
 
 # create folder for config, metadata and keys / added later by setup_mellon.sh
 RUN mkdir -p /etc/httpd/saml2
