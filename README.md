@@ -18,7 +18,7 @@ Cool way: <br>
 Edit file MISP/app/Config/config.php <br>
 Change line: from 'ApacheShibbAuth' => NULL to 'ApacheShibbAuth' => true
 
-This displays a login button "Login with SAML"
+This displays a login button "Login with SAML" on the default login page of misp
 
 Apache Proxy is saml authenticating users bases on loctions:
   - ###### /sso/users/login
