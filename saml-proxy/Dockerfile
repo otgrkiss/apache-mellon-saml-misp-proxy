@@ -20,11 +20,16 @@ RUN a2enmod lbmethod_byrequests
 RUN mkdir -p /etc/httpd/saml2
 # add mellon template config
 COPY config/mellon_template.conf /etc/httpd/saml2/mellon_template.conf
+COPY config/mellon_ssl_template.conf /etc/httpd/saml2/mellon_ssl_template.conf
 COPY config/setup_mellon.sh /etc/httpd/saml2/setup_mellon.sh
 RUN chmod +x /etc/httpd/saml2/setup_mellon.sh
 
 # remove default pages
 RUN rm /etc/apache2/sites-enabled/0*.conf
+
+# for ssl certificate and key
+RUN mkdir -p /usr/local/ssl
+RUN mkdir -p  /usr/local/ssl/crt
 
 # Manually set up the apache environment variables
 ENV APACHE_RUN_USER www-data

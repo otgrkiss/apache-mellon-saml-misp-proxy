@@ -13,7 +13,7 @@ mv ${file_prefix}.key /etc/httpd/saml2/mellon.key
 mv ${file_prefix}.xml /etc/httpd/saml2/mellon_metadata.xml
 mkdir -p /var/www/html/saml
 cp /etc/httpd/saml2/mellon_metadata.xml /var/www/html/saml/metadata.xml
-chown www-data:www-data /var/www/saml_metadata/metadata/saml.xml
+chown www-data:www-data /var/www/html/saml/metadata.xml
 
 # download metadata from idp
 curl -k -o /etc/httpd/saml2/idp_metadata.xml "${idp_metadata_url}"
@@ -21,7 +21,14 @@ curl -k -o /etc/httpd/saml2/idp_metadata.xml "${idp_metadata_url}"
 sed "s|proxy_destination_scheme_host|${proxy_destination_scheme_host}|g" /etc/httpd/saml2/mellon_template.conf > /etc/apache2/sites-enabled/mellon.conf
 sed -i "s|misp_secure_header|${misp_secure_header}|g" /etc/apache2/sites-enabled/mellon.conf
 
-# test apache config
-apachectl configtest
+sed "s|proxy_destination_scheme_host|${proxy_destination_scheme_host}|g" /etc/httpd/saml2/mellon_ssl_template.conf > /etc/apache2/sites-enabled/mellon_ssl.conf
+sed -i "s|misp_secure_header|${misp_secure_header}|g" /etc/apache2/sites-enabled/mellon_ssl.conf
+
+# generate self signed certificates if wanted
+if [ "$apache_self_signed_cert" = "true" ] ; then
+    openssl req -new -newkey rsa:4096 -days 365 -nodes -x509 \
+    -subj "/C=lo/ST=lo/L=local/O=local/CN=localhost" \
+    -keyout /usr/local/ssl/apache/private.key  -out /usr/local/ssl/apache/public.crt
+fi
 
 /usr/sbin/apache2ctl -D FOREGROUND
