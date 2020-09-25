@@ -19,7 +19,6 @@ RUN a2enmod lbmethod_byrequests
 # create folder for config, metadata and keys / added later by setup_mellon.sh
 RUN mkdir -p /etc/httpd/saml2
 # add mellon template config
-COPY config/mellon_template.conf /etc/httpd/saml2/mellon_template.conf
 COPY config/mellon_ssl_template.conf /etc/httpd/saml2/mellon_ssl_template.conf
 COPY config/setup_mellon.sh /etc/httpd/saml2/setup_mellon.sh
 RUN chmod +x /etc/httpd/saml2/setup_mellon.sh

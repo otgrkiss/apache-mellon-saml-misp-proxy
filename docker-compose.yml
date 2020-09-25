@@ -6,7 +6,6 @@ services:
     container_name: misp-saml-proxy
     restart: unless-stopped
     ports:
-      - "8081:80"
       - "8082:443"
     environment:
       sp_scheme: "http"
