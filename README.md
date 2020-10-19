@@ -1,5 +1,5 @@
 # apache-mellon-saml-misp-proxy
-<a href="https://hub.docker.com/r/jellyfin/jellyfin">
+<a href="https://hub.docker.com/repository/docker/otgrkiss/apache-mellon-saml-misp-proxy">
 <img alt="Docker Pull Count" src="https://img.shields.io/docker/pulls/otgrkiss/apache-mellon-saml-misp-proxy.svg"/>
 </a>
 
