@@ -1,4 +1,7 @@
 # apache-mellon-saml-misp-proxy
+<a href="https://hub.docker.com/r/jellyfin/jellyfin">
+<img alt="Docker Pull Count" src="https://img.shields.io/docker/pulls/otgrkiss/apache-mellon-saml-misp-proxy.svg"/>
+</a>
 
 Warning: No security settings and modifications were applied at this point.
 
